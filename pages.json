@@ -1,0 +1,183 @@
+{
+  "easycom": {
+    "^tn-(.*)": "@/tuniao-ui/components/tn-$1/tn-$1.vue"
+  },
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "图鸟壁纸"
+			}
+		}
+	],
+  "subPackages": [
+    {
+      "root": "pageA",
+      "pages": [
+        {
+          "path": "search/search",
+          "style": {
+          	"navigationBarTitleText": "搜索"
+          }
+        },
+        {
+          "path": "set/set",
+          "style": {
+          	"navigationBarTitleText": "设置"
+          }
+        },
+        {
+          "path": "about/about",
+          "style": {
+          	"navigationBarTitleText": "关于图鸟"
+          }
+        },
+        {
+          "path": "details/details",
+          "style": {
+          	"navigationBarTitleText": "详情"
+          }
+        },
+        {
+          "path": "atlas/atlas",
+          "style": {
+          	"navigationBarTitleText": "套图"
+          }
+        },
+        {
+          "path": "photo/photo",
+          "style": {
+          	"navigationBarTitleText": "单图"
+          }
+        },
+        {
+          "path": "author/author",
+          "style": {
+          	"navigationBarTitleText": "作者"
+          }
+        },
+        {
+          "path": "me/me",
+          "style": {
+          	"navigationBarTitleText": "我的发布"
+          }
+        },
+        {
+          "path": "history/history",
+          "style": {
+          	"navigationBarTitleText": "发布记录"
+          }
+        },
+        {
+          "path": "create/create",
+          "style": {
+          	"navigationBarTitleText": "创作"
+          }
+        },
+        {
+        	"path": "navigation/navigation",
+        	"style": {
+        		"navigationBarTitleText": "导航"
+        	}
+        },
+        {
+        	"path": "interact/interact",
+        	"style": {
+        		"navigationBarTitleText": "收藏下载"
+        	}
+        },
+        {
+        	"path": "help/help",
+        	"style": {
+        		"navigationBarTitleText": "帮助中心"
+        	}
+        }
+      ]
+    },
+    {
+      "root": "pageB",
+      "pages": [
+        {
+          "path": "wallpaper/wallpaper",
+          "style": {
+          	"navigationBarTitleText": "壁纸"
+          }
+        },
+        {
+          "path": "chat/chat",
+          "style": {
+          	"navigationBarTitleText": "聊天"
+          }
+        },
+        {
+          "path": "chat/chatGPT",
+          "style": {
+          	"navigationBarTitleText": "智能助手"
+          }
+        },
+        {
+          "path": "edit/edit",
+          "style": {
+          	"navigationBarTitleText": "发布"
+          }
+        },
+        {
+          "path": "result/result",
+          "style": {
+          	"navigationBarTitleText": "智能生成"
+          }
+        },
+        {
+          "path": "result/result2",
+          "style": {
+          	"navigationBarTitleText": "已发布Ai"
+          }
+        },
+        {
+          "path": "activity/activity",
+          "style": {
+          	"navigationBarTitleText": "Ai广场"
+          }
+        },
+        {
+          "path": "article/article",
+          "style": {
+          	"navigationBarTitleText": "公众号"
+          }
+        },
+        {
+        	"path": "task/task",
+        	"style": {
+        		"navigationBarTitleText": "日签任务"
+        	}
+        },
+        {
+        	"path": "integral/integral",
+        	"style": {
+        		"navigationBarTitleText": "积分明细"
+        	}
+        },
+        {
+        	"path": "loading/loading",
+        	"style": {
+        		"navigationBarTitleText": "加载中"
+        	}
+        }
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "packages": ["pageA", "pageB"],
+      "network": "all"
+    }
+  },
+	"globalStyle": {
+    "navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "图鸟UI",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}
