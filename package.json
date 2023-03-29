@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "luch-request": "^3.0.8"
+  }
+}
