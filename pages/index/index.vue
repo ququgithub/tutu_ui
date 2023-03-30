@@ -156,7 +156,7 @@
   import PageC from './component/PageC.vue'
   import PageD from './component/PageD.vue'
   import PageE from './component/PageE.vue'
-  
+	
 	export default {
     components: {
       PageA,
@@ -168,7 +168,6 @@
 		data() {
 			return {
         currentTabbarIndex: 0,
-        
         // 自定义底栏对应页面的加载情况
         tabberPageLoadFlag: []
 			}

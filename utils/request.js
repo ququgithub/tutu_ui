@@ -1,6 +1,7 @@
 import Request from "luch-request"
 
-let baseUrl = "https://clientapi.tiku-cloud.com/api/"
+let baseUrl = "https://picture.qqdeveloper.com/api/"
+// let baseUrl = "http://localhost.picture_api.com/api/"
 
 const http = new Request({
 	baseURL: baseUrl,
@@ -9,7 +10,7 @@ const http = new Request({
 })
 http.interceptors.request.use((config) => {
 	config.header = {
-		Authorization: 'Bearer ' + uni.getStorageSync("login_token"),
+		Authorization: 'Bearer ' + uni.getStorageSync("login"),
 	}
 	return config
 })

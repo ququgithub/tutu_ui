@@ -55,7 +55,7 @@
                       :key="sub_index"
                       class="tn-classify__content__sub-classify__content__item tn-flex tn-flex-wrap tn-flex-row-center"
                     >
-                      <view class="tn-classify__content__sub-classify__content__image tn-flex tn-flex-col-center tn-flex-row-center" @click="tn('/pageA/photo/photo')">
+                      <view class="tn-classify__content__sub-classify__content__image tn-flex tn-flex-col-center tn-flex-row-center" @click="tn('/pageB/wallpaper/wallpaper')">
                         <image :src="sub_item.image" mode="aspectFill"></image>
                       </view>
                       <!-- 标题，有需要可以显示出来 -->

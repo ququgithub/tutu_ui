@@ -19,43 +19,43 @@
       <view class="tn-flex tn-flex-row-between tn-strip-bottom tn-padding" @tap.stop="openAuthorizationModal">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
-            不许凶我吖
+            {{userInfo.nickname}}
           </view>
           <view class="tn-color-gray tn-padding-top-xs">
-            静下心来，做好图鸟
+            {{userInfo.remark}}
           </view>
         </view>
         <view class="justify-content-item tn-text-lg tn-color-grey">
           <view class="logo-pic tn-shadow">
             <view class="logo-image">
-              <view class="tn-shadow-blur" style="background-image:url('https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664005699053-assets/web-upload/8645ea3a-e0a9-4422-8364-cc5ede305c9f.jpeg');width: 80rpx;height: 80rpx;background-size: cover;">
+              <view class="tn-shadow-blur login-image" :style="{backgroundImage:`url(${userInfo.avatar_url})`}">
               </view>
             </view>
           </view>
         </view>
       </view>
       
-      <!-- <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal1">
-        <view class="justify-content-item">
-          <view class="tn-text-bold tn-text-lg">
-            用户昵称
-          </view>
-          <view class="tn-color-gray tn-padding-top-xs">
-            不许凶我
-          </view>
-        </view>
-        <view class="justify-content-item tn-text-lg tn-color-grey">
-          <view class="tn-icon-right tn-padding-top"></view>
-        </view>
-      </view> -->
-      
+			<view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal1">
+				<view class="justify-content-item">
+					<view class="tn-text-bold tn-text-lg">
+						 {{userInfo.nickname}}
+					</view>
+					<view class="tn-color-gray tn-padding-top-xs">
+						{{userInfo.remark}}
+					</view>
+				</view>
+				<view class="justify-content-item tn-text-lg tn-color-grey">
+					<view class="tn-icon-right tn-padding-top"></view>
+				</view>
+			</view>
+			
       <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal2">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
             绑定手机号
           </view>
           <view class="tn-color-gray tn-padding-top-xs">
-            13911111193
+            {{userInfo.mobile == "" ? "暂未设置手机号" : userInfo.mobile}}
           </view>
         </view>
         <view class="justify-content-item tn-text-lg tn-color-grey">
@@ -69,7 +69,7 @@
             姓名
           </view>
           <view class="tn-color-gray tn-padding-top-xs">
-            未填写
+            {{userInfo.name == "" ? "未填写" : userInfo.name}}
           </view>
         </view>
         <view class="justify-content-item tn-text-lg tn-color-grey">
@@ -84,7 +84,7 @@
             </view>
             <view class="tn-color-gray tn-padding-top-xs">
               
-                <view class="tn-color-gray">{{array[index]}}</view>
+                <view class="tn-color-gray">{{array[userInfo.gender]}}</view>
             </view>
           </view>
           <view class="justify-content-item tn-text-lg tn-color-grey">
@@ -99,7 +99,7 @@
               生日
             </view>
             <view class="tn-color-gray tn-padding-top-xs">
-              {{date}}
+              {{userInfo.birthday}}
             </view>
           </view>
           <view class="justify-content-item tn-text-lg tn-color-grey">
@@ -179,6 +179,7 @@
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
   import WxUserInfoModal from '@/uni_modules/tuniaoui-wx-user-info/components/tuniaoui-wx-user-info/tuniaoui-wx-user-info.vue'
+	import { userInfo } from "@/utils/api/user"
   export default {
     components: { WxUserInfoModal },
     name: 'TemplateSet',
@@ -190,10 +191,11 @@
         show2: false,
         show3: false,
         index: 0,
-        array: ['女', '男', '保密'],
+        array: ['保密','男', '女'],
         date: '2000-01-29',
         index1: 1,
         array1: ['计算机/电子', '高级UI设计', '会计/金融', '政府/非盈利组织/其他'],
+				userInfo: {},
       }
     },
     computed: {
@@ -204,7 +206,15 @@
             return this.getDate('end');
         }
     },
+		onShow() {
+			this.getUserInfo()
+		},
     methods: {
+			getUserInfo () {
+				userInfo().then(res => {
+					this.userInfo = res
+				})
+			},
       // 跳转
       tn(e) {
       	uni.navigateTo({
@@ -323,7 +333,12 @@
         background-color: #FFFFFF;
       }
     }
-
+	.login-image {
+		width: 110rpx;
+		height: 110rpx;
+		backgroundSize: cover;
+		overflow: hidden
+	}
   /* 授权 */
     .login-page {
     width: 100vw;

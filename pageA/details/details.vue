@@ -47,7 +47,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action">
+      <view class="action" @click="downloadImage">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -159,7 +159,9 @@
           url: e,
         });
       },
-      
+      downloadImage() {
+				this.$func.downloadImage(this.swiperList[this.cardCur].url)
+			},
       // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current

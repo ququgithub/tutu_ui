@@ -39,18 +39,6 @@
           }
         },
         {
-          "path": "atlas/atlas",
-          "style": {
-          	"navigationBarTitleText": "套图"
-          }
-        },
-        {
-          "path": "photo/photo",
-          "style": {
-          	"navigationBarTitleText": "单图"
-          }
-        },
-        {
           "path": "author/author",
           "style": {
           	"navigationBarTitleText": "作者"
