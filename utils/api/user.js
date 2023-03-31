@@ -11,3 +11,9 @@ export function userInfo() {
 		return res.data
 	})
 }
+
+export function updateUserInfo(params) {
+	return request.put("user/update", params).then(res => {
+		return res.data
+	})
+}

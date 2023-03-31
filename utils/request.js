@@ -17,34 +17,40 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use((response) => {
 	return response.data
 }, (response) => {
-	console.log(response.statusCode, response.errMsg)
+	if (response.statusCode === 200 && response.code === 101) {
+		uni.showToast({
+			title: response.data.msg || '请求失败',
+			icon: "none",
+			duration: 3000,
+		})
+	}
 	if (response.statusCode === 500) {
 		uni.showToast({
-			title: response.data.message || '服务器错误',
+			title: response.data.msg || '服务器错误',
 			icon: "none",
 			duration: 3000,
 		})
 	} else if (response.statusCode === 400) {
 		uni.showToast({
-			title: response.data.message,
+			title: response.data.msg,
 			icon: "none",
 			duration: 3000,
 		})
 	} else if (response.statusCode === 404) {
 		uni.showToast({
-			title: response.data.message,
+			title: response.data.msg,
 			icon: "none",
 			duration: 3000,
 		})
 	} else if (response.statusCode === 422) {
 		uni.showToast({
-			title: response.data.message,
+			title: response.data.msg,
 			icon: "none",
 			duration: 3000,
 		})
 	} else if (response.statusCode === 401) {
 		uni.showToast({
-			title: response.data.message,
+			title: response.data.msg,
 			icon: "none",
 			duration: 3000,
 		})

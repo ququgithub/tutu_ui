@@ -24,5 +24,12 @@ export default {
 				})
 			}
 		})
-	}
+	},
+	showToast: function(title, time = 3000) {
+			uni.showToast({
+				title: title,
+				duration: time,
+				icon: "none"
+			})
+	},
 }

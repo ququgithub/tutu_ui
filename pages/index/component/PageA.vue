@@ -20,18 +20,18 @@
       
       <swiper class="card-swiper" :circular="true"
         :autoplay="true" duration="500" interval="8000" @change="cardSwiper"> 
-        <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
-          <view class="swiper-item image-banner" :style="'background-image:url('+ item.url + ');background-size: cover;border-radius: 15rpx;'">
+        <swiper-item v-for="(item,index) in bannerList" :key="index" :class="cardCur==index?'cur':''">
+          <view class="swiper-item image-banner" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;'">
           </view>
           <view class="swiper-item-text">
-            <view class="tn-text-bold tn-color-white" style="font-size: 50rpx;">{{item.title}}</view>
-            <view class="tn-color-white tn-padding-top" style="font-size: 30rpx;">{{item.name}}</view>
+            <view class="tn-text-bold tn-color-white" style="font-size: 50rpx;">{{item.first_title}}</view>
+            <view class="tn-color-white tn-padding-top" style="font-size: 30rpx;">{{item.second_title}}</view>
             <view class="tn-text-sm tn-text-bold tn-color-white tn-padding-top-sm tn-padding-bottom-sm">{{item.text}}</view>
           </view>
         </swiper-item>
       </swiper>
       <view class="indication">
-          <block v-for="(item,index) in swiperList" :key="index">
+          <block v-for="(item,index) in bannerList" :key="index">
               <view class="spot" :class="cardCur==index?'active':''"></view>
           </block>
       </view>
@@ -40,10 +40,10 @@
     
     <!-- 方式5，图片形式，安卓手机 start-->
     <view v-if="isAndroid" class="tn-flex tn-flex-wrap tn-padding-top home-shadow">
-     <block v-for="(item, index) in icons1" :key="index">
-      <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="tn(item.url)">
+     <block v-for="(item, index) in menuList" :key="index">
+      <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="tn(item.navigate)">
         <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
-          <view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center" :style="'background-image:url('+ item.icon +');background-size:100% 100%;background-size: cover;'">
+          <view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center" :style="'background-image:url('+ item.url + item.path +');background-size:100% 100%;background-size: cover;'">
           </view>
           <view class="tn-color-black tn-text-center">
             <text class="tn-text-ellipsis">{{ item.title }}</text>
@@ -56,10 +56,10 @@
     
     <!-- 方式5，图片形式，苹果手机 start-->
     <view v-else class="tn-flex tn-flex-wrap tn-padding-top home-shadow">
-     <block v-for="(item, index) in icons2" :key="index">
-      <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="tn(item.url)">
+     <block v-for="(item, index) in menuList" :key="index">
+      <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="tn(item.navigate)">
         <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
-          <view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center" :style="'background-image:url('+ item.icon +');background-size:100% 100%;background-size: cover;'">
+          <view class="icon5__item--icon tn-flex tn-flex-row-center tn-flex-col-center" :style="'background-image:url('+ item.url + item.path +');background-size:100% 100%;background-size: cover;'">
           </view>
           <view class="tn-color-black tn-text-center">
             <text class="tn-text-ellipsis">{{ item.title }}</text>
@@ -72,14 +72,14 @@
     
     
     <!--胶囊 banner 需要可用显示出来即可 start-->
-    <!-- <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
+    <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
       <view class="" style="width: 100%;">
         <view class="image-piccapsule tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/capsule-banner/banner-tnmb.png');">
            <view class="image-capsule">
            </view>
          </view>  
       </view>  
-    </view> -->
+    </view>
     <!-- banner end-->
     
     
@@ -202,54 +202,13 @@
 </template>
 
 <script>
+	import { bannerList } from '@/utils/api/banner'
+	import { seriesList } from '@/utils/api/image'
   export default {
     name: 'PagesA',
     data(){
       return {
-        icons1: [
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666765211148-assets/web-upload/bc9ff0e7-36a5-4d99-8698-cd589b00dc99.png",
-            title: "人物写真",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666764788499-assets/web-upload/4cf1bbab-efb8-401c-9a2d-21689d024491.png",
-            title: "动漫壁纸",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666765049011-assets/web-upload/e49243fa-5182-4fbb-a850-33e927316a90.png",
-            title: "风景系列",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666764932305-assets/web-upload/8d5ff7dd-c2b0-4455-acf9-df6ba3a064b1.png",
-            title: "安卓专属",
-            url: "/pageB/wallpaper/wallpaper"
-          }
-        ],
-        icons2: [
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666765211148-assets/web-upload/bc9ff0e7-36a5-4d99-8698-cd589b00dc99.png",
-            title: "人物写真",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666764788499-assets/web-upload/4cf1bbab-efb8-401c-9a2d-21689d024491.png",
-            title: "动漫壁纸",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666765049011-assets/web-upload/e49243fa-5182-4fbb-a850-33e927316a90.png",
-            title: "风景系列",
-            url: "/pageB/wallpaper/wallpaper"
-          },
-          {
-            icon: "https://cdn.nlark.com/yuque/0/2022/png/280373/1666764932305-assets/web-upload/8d5ff7dd-c2b0-4455-acf9-df6ba3a064b1.png",
-            title: "苹果专属",
-            url: "/pageB/wallpaper/wallpaper"
-          }
-        ],
+        menuList: [],
         searlist: [
           '凶姐精美壁纸',
           '情侣聊天背景',
@@ -258,38 +217,7 @@
         ],
         cardCur: 0,
         isAndroid: true,
-        swiperList: [{
-          id: 0,
-          type: 'image',
-          title: '合作勾搭',
-          name: '作者微信 tnkewo',
-          url: 'https://tnuiimage.tnkjapp.com/swiper/adno3.jpg',
-        }, {
-          id: 1,
-          type: 'image',
-          title: '海量分享',
-          name: '总有你想不到的创意',
-          url: 'https://tnuiimage.tnkjapp.com/swiper/adno2.jpg',
-        }, {
-          id: 2,
-          type: 'image',
-          title: '酷炫多彩',
-          name: '更多彩蛋等你探索',
-          url: 'https://tnuiimage.tnkjapp.com/swiper/adno4.jpg',
-        }, {
-          id: 3,
-          type: 'image',
-          title: '适配多端',
-          name: 'APP、微信小程序、H5、Finclip',
-          url: 'https://tnuiimage.tnkjapp.com/swiper/adno5.jpg',
-        },{
-          id: 4,
-          type: 'image',
-          title: '',
-          name: '',
-          url: 'https://tnuiimage.tnkjapp.com/swiper/ad1.jpg',
-        }],
-        
+        bannerList: [],        
         current: 0,
         scrollList: [
           {name: '推荐'},
@@ -506,8 +434,20 @@
       }
       /* 瀑布流*/
       this.getRandomData()
+			this.getBannerList()
+			this.getMenuList()
     },
     methods: {
+			getBannerList() {
+				bannerList().then(res => {
+					this.bannerList = res.items
+				})
+			},
+			getMenuList() {
+				seriesList().then(res => {
+					this.menuList = res.items
+				})
+			},
       // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current
@@ -528,7 +468,6 @@
       /* 瀑布流*/
       // 获取随机数据
       getRandomData() {
-        console.log(13);
         this.loadStatus = 'loading'
         for (let i = 0; i < 10; i++) {
           let index = this.$t.number.randomInt(0, this.data.length - 1)

@@ -25,7 +25,7 @@
 					<view class="tn-flex tn-flex-col-center tn-flex-row-left">
 						<view class="logo-pic tn-shadow">
 							<view class="logo-image">
-								<view class="tn-shadow-blur login-image" :style="{backgroundImage:`url(${userInfo.avatar_url})`}">
+								<view class="tn-shadow-blur" :style="'background-image:url('+ userInfo.avatar_url +');width: 110rpx;height: 110rpx;background-size: cover;overflow: hidden;background-position: center center;'">
 								</view>
 							</view>
 						</view>
@@ -296,9 +296,7 @@
 </template>
 
 <script>
-	import {
-		userLogin
-	} from '@/utils/api/user'
+	import { userLogin, userInfo } from '@/utils/api/user'
 	export default {
 		name: 'Mine',
 		data() {
@@ -311,9 +309,11 @@
 		},
 		methods: {
 			getUsercaheInfo() {
-				uni.getStorageSync("login")
-				this.userInfo = uni.getStorageSync("userinfo")
-				console.log(this.userInfo)
+				if (uni.getStorageSync("login").length != 0 || uni.getStorageSync("login") != undefined) {
+					userInfo().then(res => {
+						this.userInfo = res
+					})
+				}
 			},
 			userLogin() {
 				let _that = this
@@ -356,12 +356,6 @@
 <style lang="scss" scoped>
 	.page-e {
 		max-height: 100vh;
-	}
-	.login-image {
-		width: 110rpx;
-		height: 110rpx;
-		backgroundSize: cover;
-		overflow: hidden
 	}
 	/* 底部安全边距 start*/
 	.tn-tabbar-height {

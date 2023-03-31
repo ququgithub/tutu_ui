@@ -28,14 +28,15 @@
         <view class="justify-content-item tn-text-lg tn-color-grey">
           <view class="logo-pic tn-shadow">
             <view class="logo-image">
-              <view class="tn-shadow-blur login-image" :style="{backgroundImage:`url(${userInfo.avatar_url})`}">
+							<view class="tn-shadow-blur" :style="'background-image:url('+ userInfo.avatar_url +');width: 80rpx;height: 80rpx;background-size: cover;'">
+							</view>
               </view>
             </view>
           </view>
         </view>
       </view>
       
-			<view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal1">
+	<!-- 		<view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal1">
 				<view class="justify-content-item">
 					<view class="tn-text-bold tn-text-lg">
 						 {{userInfo.nickname}}
@@ -47,9 +48,9 @@
 				<view class="justify-content-item tn-text-lg tn-color-grey">
 					<view class="tn-icon-right tn-padding-top"></view>
 				</view>
-			</view>
+			</view> -->
 			
-      <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal2">
+      <!-- <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal2">
         <view class="justify-content-item">
           <view class="tn-text-bold tn-text-lg">
             绑定手机号
@@ -61,7 +62,7 @@
         <view class="justify-content-item tn-text-lg tn-color-grey">
           <view class="tn-icon-right tn-padding-top"></view>
         </view>
-      </view>
+      </view> -->
       
       <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding" @click="showModal3">
         <view class="justify-content-item">
@@ -83,7 +84,6 @@
               性别
             </view>
             <view class="tn-color-gray tn-padding-top-xs">
-              
                 <view class="tn-color-gray">{{array[userInfo.gender]}}</view>
             </view>
           </view>
@@ -107,14 +107,14 @@
           </view>
         </view>
       </picker>
-      <picker @change="bindPickerChange1" :value="index1" :range="array1">
+      <picker @change="bindPickerChange1" :value="userInfo.profession" :range="array1">
         <view class="tn-flex tn-flex-row-between tn-strip-bottom-min tn-padding">
           <view class="justify-content-item">
             <view class="tn-text-bold tn-text-lg">
-              职业
+              专业
             </view>
             <view class="tn-color-gray tn-padding-top-xs">
-              {{array1[index1]}}
+              {{array1[userInfo.profession]}}
             </view>
           </view>
           <view class="justify-content-item tn-text-lg tn-color-grey">
@@ -138,12 +138,12 @@
         </view>
       </tn-modal>
       
-      <tn-modal v-model="show2" :custom="true" :showCloseBtn="true">
+      <!-- <tn-modal v-model="show2" :custom="true" :showCloseBtn="true">
         <view class="custom-modal-content">
           <view class="">
             <view class="tn-text-lg tn-text-bold tn-color-purplered tn-text-center tn-padding">变更手机号码</view>
             <view class="tn-bg-gray--light tn-color-gray" style="border-radius: 10rpx;padding: 20rpx 30rpx;margin: 50rpx 0 60rpx 0;">
-              13911111193
+              {{userInfo.mobile}}
             </view>
           </view>
           <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center">
@@ -152,34 +152,34 @@
             </tn-button>
           </view>
         </view>
-      </tn-modal>
+      </tn-modal> -->
       
       <tn-modal v-model="show3" :custom="true" :showCloseBtn="true">
         <view class="custom-modal-content">
           <view class="">
             <view class="tn-text-lg tn-text-bold tn-color-purplered tn-text-center tn-padding">请输入真实姓名</view>
             <view class="tn-bg-gray--light" style="border-radius: 10rpx;padding: 20rpx 30rpx;margin: 50rpx 0 60rpx 0;">
-              <input placeholder="请填写姓名" name="input" placeholder-style="color:#AAAAAA" maxlength="20"></input>
+              <input placeholder="请填写姓名" name="input" @input="realNameInput" placeholder-style="color:#AAAAAA" maxlength="20" :value="userInfo.name"></input>
             </view>
           </view>
-          <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center">
+          <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center" @click="colseRealNameModail">
             <tn-button backgroundColor="#3668FC" padding="40rpx 0" width="60%" fontBold>
               <text class="tn-color-white">保 存</text>
             </tn-button>
           </view>
         </view>
       </tn-modal>
-      
-    </view>
-    
-    
+			<tn-button backgroundColor="#3668FC" margin="40rpx 2%" width="96%" fontBold height="80rpx" fontSize="30" @click="updateUserInfo">
+				<text class="tn-color-white">保 存</text>
+			</tn-button>  
+    </view>    
   </view>
 </template>
 
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
   import WxUserInfoModal from '@/uni_modules/tuniaoui-wx-user-info/components/tuniaoui-wx-user-info/tuniaoui-wx-user-info.vue'
-	import { userInfo } from "@/utils/api/user"
+	import { userInfo, updateUserInfo } from "@/utils/api/user"
   export default {
     components: { WxUserInfoModal },
     name: 'TemplateSet',
@@ -190,10 +190,7 @@
         show1: false,
         show2: false,
         show3: false,
-        index: 0,
         array: ['保密','男', '女'],
-        date: '2000-01-29',
-        index1: 1,
         array1: ['计算机/电子', '高级UI设计', '会计/金融', '政府/非盈利组织/其他'],
 				userInfo: {},
       }
@@ -215,13 +212,34 @@
 					this.userInfo = res
 				})
 			},
+			updateUserInfo() {
+				console.log(this.userInfo)
+				updateUserInfo(this.userInfo).then(res => {
+					uni.setStorageSync("login", res.token)
+					uni.setStorageSync("userinfo", res.user)
+					this.$func.showToast("信息更新成功")
+				})
+			},
       // 跳转
       tn(e) {
       	uni.navigateTo({
       		url: e,
       	});
       },
-      
+			colseRealNameModail() {
+				if (this.userInfo.name == "") {
+					this.$func.showToast("请填写姓名")
+					return
+				}
+				if (this.userInfo.name.length > 10) {
+					this.$func.showToast("姓名长度不能大于10")
+					return
+				}
+				this.show3 = false
+			},
+      realNameInput(e) {
+				this.userInfo.name = e.detail.value
+			},
       // 弹出模态框
       showModal1(event) {
         this.openModal1()
@@ -250,15 +268,15 @@
       },
       
       bindPickerChange: function(e) {
-        this.index = e.detail.value
+				this.userInfo.gender = e.detail.value
       },
       
       bindPickerChange1: function(e) {
-        this.index1 = e.detail.value
+				this.userInfo.profession = e.detail.value
       },
       
       bindDateChange: function(e) {
-          this.date = e.detail.value
+				this.userInfo.birthday = e.detail.value
       },
       
       getDate(type) {
@@ -285,6 +303,8 @@
       // 获取到的用户信息
       updatedUserInfoEvent(info) {
         console.log('获取到的用户信息', info)
+				this.userInfo.nickname = info.nickname
+				this.userInfo.avatar_url = info.avatar_url
       },      
       
       
@@ -333,12 +353,6 @@
         background-color: #FFFFFF;
       }
     }
-	.login-image {
-		width: 110rpx;
-		height: 110rpx;
-		backgroundSize: cover;
-		overflow: hidden
-	}
   /* 授权 */
     .login-page {
     width: 100vw;
