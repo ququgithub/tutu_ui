@@ -55,7 +55,8 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-        "requiredPrivateInfos" : [ "chooseAddress" ]
+        "requiredPrivateInfos" : [ "chooseAddress" ],
+				"betterScopedSlots": "legacy"
     },
     "mp-alipay" : {
         "usingComponents" : true

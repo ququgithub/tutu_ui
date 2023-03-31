@@ -2,13 +2,13 @@
 	<view class="page-e tn-safe-area-inset-bottom">
 
 		<!-- 顶部自定义导航 -->
-		<tn-nav-bar :isBack="false" :bottomShadow="false" backgroundColor="none">
+		<!-- <tn-nav-bar :isBack="false" :bottomShadow="false" backgroundColor="none">
 			<view class="custom-nav tn-flex tn-flex-col-center tn-flex-row-left" @click="tn('')">
 				<view class="custom-nav__back">
 					<text class="tn-text-bold tn-text-xl tn-color-black">个人中心</text>
 				</view>
 			</view>
-		</tn-nav-bar>
+		</tn-nav-bar> -->
 
 		<template v-if="userInfo.nickname != undefined">
 			<view class="top-backgroup">
