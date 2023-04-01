@@ -72,14 +72,14 @@
     
     
     <!--胶囊 banner 需要可用显示出来即可 start-->
-    <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
+    <!-- <view class="tn-flex tn-flex-wrap tn-padding-bottom" @click="tn('')">
       <view class="" style="width: 100%;">
         <view class="image-piccapsule tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/capsule-banner/banner-tnmb.png');">
            <view class="image-capsule">
            </view>
          </view>  
       </view>  
-    </view>
+    </view> -->
     <!-- banner end-->
     
     
@@ -144,9 +144,9 @@
                   <view class="item__title-container">
                     <text class="item__title tn-color-black">{{ item.title }}</text>
                   </view>
-                  <view class="item__tags-container">
+                  <!-- <view class="item__tags-container">
                     <view v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex" class="item__tag">{{ tagItem }}</view>
-                  </view>
+                  </view> -->
                   <view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xs">
                     <view class="justify-content-item">
                       <view class="tn-flex tn-flex-col-center tn-flex-row-left">

@@ -23,3 +23,11 @@ export function imageItemList(params) {
 		return res.data
 	})
 }
+
+export function imageCategoryList(params) {
+	return request.get("img/category", {
+		params: params
+	}).then(res => {
+		return res.data
+	})
+}

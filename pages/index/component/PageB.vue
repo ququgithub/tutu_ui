@@ -31,7 +31,7 @@
               class="tn-classify__tabbar__item tn-flex tn-flex-col-center tn-flex-row-center"
               :class="[tabbarItemClass(index)]"
               @tap.stop="clickClassifyNav(index)">
-              <view class="tn-classify__tabbar__item__title">{{ item }}</view>
+              <view class="tn-classify__tabbar__item__title">{{ item.title }}</view>
             </view>
           </scroll-view>
           
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+	import { imageCategoryList } from '@/utils/api/image.js'
   export default {
     name: 'templateShopClassify',
     data() {
@@ -85,32 +86,7 @@
           '手机屏保壁纸'
         ],
         // 侧边栏分类数据
-        tabbar: [
-          '推荐',
-          '旅行',
-          '简约',
-          '美食',
-          '唯美',
-          '卡通',
-          '动漫',
-          '可爱',
-          '风景',
-          '手绘',
-          '萌宠',
-          '星空',
-          '文艺',
-          '趣味',
-          '商务',
-          '清新',
-          '明星',
-          '沙滩',
-          '夜晚',
-          '夕阳',
-          '浪漫',
-          '春天',
-          '月亮',
-          '其他',
-        ],
+        tabbar: [],
         // 分类里面的内容信息
         classifyContent: {
           // 推荐商品
@@ -187,13 +163,21 @@
         }
       }
     },
+		created() {
+			this.getImageCategoryList()
+		},
     mounted() {
       this.$nextTick(() => {
         this.getScrollViewInfo()
-        this.getTabbarItemRect()
       })
     },
     methods: {
+			getImageCategoryList() {
+				imageCategoryList().then(res => {
+					this.tabbar = res.items
+					this.getTabbarItemRect()
+				})
+			},
       // 跳转
       tn(e) {
       	uni.navigateTo({
@@ -221,6 +205,7 @@
       // 获取分类菜单每个item的信息
       getTabbarItemRect() {
         let view = uni.createSelectorQuery().in(this)
+				console.log(this.tabbar)
         for (let i = 0; i < this.tabbar.length; i++) {
           view.select('#tabbar_item_' + i).boundingClientRect()
         }

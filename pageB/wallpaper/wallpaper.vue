@@ -124,9 +124,9 @@
 									<view class="item__title-container">
 										<text class="item__title tn-color-black">{{ item.title }}</text>
 									</view>
-									<view v-if="item.tags && item.tags.length > 0" class="item__tags-container">
+									<!-- <view v-if="item.tags && item.tags.length > 0" class="item__tags-container">
 										<view v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex" class="item__tag">{{ tagItem }}</view>
-									</view>
+									</view> -->
 			
 									<view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xs">
 										<view class="justify-content-item">
@@ -171,9 +171,9 @@
 									<view class="item__title-container">
 										<text class="item__title tn-color-black">{{ item.title }}</text>
 									</view>
-									<view class="item__tags-container">
+									<!-- <view class="item__tags-container">
 										<view v-for="(tagItem, tagIndex) in item.tags" :key="tagIndex" class="item__tag">{{ tagItem }}</view>
-									</view>
+									</view> -->
 									<view class="tn-flex tn-flex-row-between tn-flex-col-center tn-padding-top-xs">
 										<view class="justify-content-item">
 											<view class="tn-flex tn-flex-col-center tn-flex-row-left">
@@ -244,7 +244,6 @@
     },
     onLoad(params) {
 			this.imageSeries = JSON.parse(params.params)
-			console.log(this.imageSeries)
 			this.queryWhere.series_uid = this.imageSeries.uid
 			this.getImageList()
     },
@@ -262,7 +261,6 @@
     },
     methods: {
 			getImageList() {
-				console.log(this.queryWhere)
 				imageList(this.queryWhere).then(res => {
 					if (res.items.length > 0) {
 						this.list.push(...res.items)
