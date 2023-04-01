@@ -238,13 +238,17 @@
 				queryWhere: {
 					page: 1,
 					size: 20,
-					series_uid: ""
+					series_uid: "",
+					category_uid: ""
 				},
 			}
     },
     onLoad(params) {
-			this.imageSeries = JSON.parse(params.params)
-			this.queryWhere.series_uid = this.imageSeries.uid
+			let param = JSON.parse(params.params)
+			this.imageSeries = param
+			console.log(param)
+			this.queryWhere.category_uid = param.category_uid || ""
+			this.queryWhere.series_uid = param.uid || ""
 			this.getImageList()
     },
     onReachBottom() {

@@ -51,12 +51,12 @@
                   
                   <view class="tn-classify__content__sub-classify__content tn-flex tn-flex-wrap tn-flex-col-center tn-flex-row-left">
                     <view
-                      v-for="(sub_item,sub_index) in item.classify"
+                      v-for="(sub_item,sub_index) in item.image"
                       :key="sub_index"
                       class="tn-classify__content__sub-classify__content__item tn-flex tn-flex-wrap tn-flex-row-center"
                     >
-                      <view class="tn-classify__content__sub-classify__content__image tn-flex tn-flex-col-center tn-flex-row-center" @click="tn('/pageB/wallpaper/wallpaper')">
-                        <image :src="sub_item.image" mode="aspectFill"></image>
+                      <view class="tn-classify__content__sub-classify__content__image tn-flex tn-flex-col-center tn-flex-row-center" @click="showList(index)">
+                        <image :src="sub_item.url + sub_item.path" mode="aspectFill"></image>
                       </view>
                       <!-- 标题，有需要可以显示出来 -->
                       <view class="tn-classify__content__sub-classify__content__title tn-margin-top-xs tn-margin-bottom-sm">{{ sub_item.title }}</view>
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-	import { imageCategoryList } from '@/utils/api/image.js'
+	import { imageCategoryList } from "@/utils/api/image.js"
   export default {
     name: 'templateShopClassify',
     data() {
@@ -86,7 +86,11 @@
           '手机屏保壁纸'
         ],
         // 侧边栏分类数据
-        tabbar: [],
+        tabbar: [
+          '推荐',
+          '旅行',
+          '简约',
+        ],
         // 分类里面的内容信息
         classifyContent: {
           // 推荐商品
@@ -163,19 +167,28 @@
         }
       }
     },
-		created() {
-			this.getImageCategoryList()
-		},
     mounted() {
       this.$nextTick(() => {
         this.getScrollViewInfo()
+        this.getTabbarItemRect()
       })
+			this.getCategoryList()
     },
     methods: {
-			getImageCategoryList() {
+			getCategoryList() {
 				imageCategoryList().then(res => {
-					this.tabbar = res.items
-					this.getTabbarItemRect()
+					this.tabbar = res
+					this.classifyContent.subClassify = res
+				})
+			},
+			showList(index) {
+				console.log(index)
+				let params = {
+					title: this.classifyContent.subClassify[index].title,
+					category_uid: this.classifyContent.subClassify[index].uid
+				}
+				uni.navigateTo({
+					url: "/pageB/wallpaper/wallpaper?params=" + JSON.stringify(params)
 				})
 			},
       // 跳转
@@ -205,7 +218,6 @@
       // 获取分类菜单每个item的信息
       getTabbarItemRect() {
         let view = uni.createSelectorQuery().in(this)
-				console.log(this.tabbar)
         for (let i = 0; i < this.tabbar.length; i++) {
           view.select('#tabbar_item_' + i).boundingClientRect()
         }
@@ -251,7 +263,7 @@
         this.$nextTick(() => {
           this.rightScrollViewTop = 0
         })
-        this.classifyContent.subClassify[0].title = this.tabbar[this.currentTabbarIndex]
+        this.classifyContent.subClassify[0].title = this.tabbar[this.currentTabbarIndex].title
       }
     }
   }

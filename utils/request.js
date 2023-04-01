@@ -1,7 +1,7 @@
 import Request from "luch-request"
 
-// let baseUrl = "https://picture.qqdeveloper.com/api/"
-let baseUrl = "http://localhost.picture_api.com/api/"
+let baseUrl = "https://picture.qqdeveloper.com/api/"
+// let baseUrl = "http://localhost.picture_api.com/api/"
 
 const http = new Request({
 	baseURL: baseUrl,
