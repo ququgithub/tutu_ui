@@ -38,7 +38,6 @@
     methods: {
 			getDocContent() {
 				docShow({uid: this.uid}).then(res => {
-					console.log(res)
 					this.content = res.content
 				})
 			},

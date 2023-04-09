@@ -35,7 +35,7 @@
                 {{imageSeries.title}}
               </view>
               <view class="tn-padding-right tn-padding-top-sm tn-text-ellipsis tn-text-sm">
-                <text class="tn-padding-right-sm">下列所有图片均来自网络图片，有兔兔搜图提供，平台不保证是否原图支持商用</text>
+                <text class="tn-padding-right-sm">下列所有图片均来自网络图片，涉及侵权请联系客服删除</text>
               </view>
             </view>
           </view>
@@ -246,7 +246,6 @@
     onLoad(params) {
 			let param = JSON.parse(params.params)
 			this.imageSeries = param
-			console.log(param)
 			this.queryWhere.category_uid = param.category_uid || ""
 			this.queryWhere.series_uid = param.uid || ""
 			this.getImageList()

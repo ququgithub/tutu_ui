@@ -48,24 +48,13 @@
 </template>
 
 <script>
+	import { imageItemList } from '@/utils/api/image'
   export default {
     name: 'PagesC',
   	data() {
   	  return {
-  	    // 
-  	    list: [{
-  	        image: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664005699066-assets/web-upload/f7a37b29-506a-4e79-937f-826334902bb4.jpeg'
-  	      },
-          {
-            image: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664005699053-assets/web-upload/8645ea3a-e0a9-4422-8364-cc5ede305c9f.jpeg'
-          },
-          {
-            image: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664179989916-assets/web-upload/eda197eb-42ce-44b1-9b14-fce3481db603.jpeg'
-          },
-          {
-            image: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664179989980-assets/web-upload/ff5a1f9d-c029-43cc-9a40-1f1ce72b664d.jpeg'
-          }
-  	    ],
+  	    imageUid: '483316112570716083',
+  	    list: [],
   	    autoplay: false
   	  }
   	},
@@ -77,14 +66,26 @@
   	onShow() {
   	  this.autoplay = true
   	},
+		created() {
+			this.getImageList()
+		},
   	onHide() {
   	  this.autoplay = false
   	},
   	methods: {
+			getImageList() {
+				imageItemList({image_uid: this.imageUid}).then(res => {
+					for (let i = 0; i < res.items.length; i++) {
+						this.list.push({
+								image: (res.items[i].url + res.items[i].path)
+							})
+					}
+				})
+			},
       // 跳转
       tn(e) {
         uni.navigateTo({
-          url: e,
+          url: e + "?image_uid=" + this.imageUid,
         });
       },
   	  // 初始化轮播图容器

@@ -26,6 +26,18 @@
           	"navigationBarTitleText": "设置"
           }
         },
+				{
+				  "path": "login/login",
+				  "style": {
+				  	"navigationBarTitleText": "登录"
+				  }
+				},
+				{
+				  "path": "emo/list",
+				  "style": {
+				  	"navigationBarTitleText": "表情包列表"
+				  }
+				},
         {
           "path": "about/about",
           "style": {
@@ -165,7 +177,8 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "图鸟UI",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"onReachBottomDistance": 50
 	},
 	"uniIdRouter": {}
 }

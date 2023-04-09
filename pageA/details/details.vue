@@ -26,7 +26,7 @@
     <swiper class="card-swiper" :circular="true"
       :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
-        <view class="swiper-item image-banner" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;'">
+        <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
         </view>
       </swiper-item>
     </swiper>
@@ -126,7 +126,7 @@
 
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
-	import { imageItemList } from '@/utils/api/image'
+	import { imageItemList, imageDownLoad } from '@/utils/api/image'
   export default {
     name: 'TemplateDetails',
     mixins: [template_page_mixin],
@@ -139,7 +139,6 @@
       }
     },
 		onLoad(options) {
-			console.log(options)
 			this.image_uid = options.image_uid || ""
 			this.getImageItemList()
 		},
@@ -156,7 +155,13 @@
         })
       },
       downloadImage() {
-				this.$func.downloadImage(this.swiperList[this.cardCur].url + this.swiperList[this.cardCur].path)
+				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
+					if (res.code == 1) {
+						this.$func.templateSubscribe(res.template_id, res.url ?? '')
+						return
+					}
+					this.$func.showToast(res.msg)
+				})
 			},
       // cardSwiper
       cardSwiper(e) {

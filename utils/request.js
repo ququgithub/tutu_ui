@@ -49,13 +49,15 @@ http.interceptors.response.use((response) => {
 			duration: 3000,
 		})
 	} else if (response.statusCode === 401) {
+		uni.navigateTo({
+			url: '/pageA/login/login'
+		})
+	} else if (response.statusCode === 403) {
 		uni.showToast({
 			title: response.data.msg,
 			icon: "none",
 			duration: 3000,
 		})
-	} else if (response.statusCode === 403) {
-		// navicate('/subPage/user/login/mini')
 	} else if (response.errMsg === "request:fail timeout") {
 		uni.showToast({
 			title: "网络请求超时",

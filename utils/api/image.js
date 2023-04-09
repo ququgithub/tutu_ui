@@ -31,3 +31,11 @@ export function imageCategoryList(params) {
 		return res.data
 	})
 }
+
+export function imageDownLoad(params) {
+	return request.get("img/download", {
+		params: params
+	}).then(res => {
+		return res.data
+	})
+}

@@ -14,13 +14,13 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
       
-      <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
+   <!--   <view class="tn-color-gray--dark" style="margin: 20rpx 30rpx 0 30rpx;border-radius: 100rpx;padding-left: 6rpx;background-color: rgba(248, 247, 248, 0.9);" @click="tn('/pageA/search/search')">
         <tn-notice-bar :list="searlist" mode="vertical" leftIconName="search" :duration="6000"></tn-notice-bar>
-      </view>  
+      </view>  -->
       
       <swiper class="card-swiper" :circular="true"
         :autoplay="true" duration="500" interval="8000" @change="cardSwiper"> 
-        <swiper-item v-for="(item,index) in bannerList" :key="index" :class="cardCur==index?'cur':''">
+        <swiper-item v-for="(item,index) in bannerList" :key="index" :class="cardCur==index?'cur':''" @click="clickBanner(index)">
           <view class="swiper-item image-banner" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;'">
           </view>
           <view class="swiper-item-text">
@@ -39,7 +39,7 @@
     
     
     <!-- 方式5，图片形式，安卓手机 start-->
-    <view v-if="isAndroid" class="tn-flex tn-flex-wrap tn-padding-top home-shadow">
+    <view v-if="isAndroid" class="tn-flex tn-flex-wrap tn-padding-top home-shadow" style="padding-top: 0rpx;">
      <block v-for="(item, index) in menuList" :key="index">
       <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="menuTn(item.navigate, index)">
         <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
@@ -55,7 +55,7 @@
     <!-- 方式5 end-->
     
     <!-- 方式5，图片形式，苹果手机 start-->
-    <view v-else class="tn-flex tn-flex-wrap tn-padding-top home-shadow">
+    <view v-else class="tn-flex tn-flex-wrap tn-padding-top home-shadow" style="padding-top: 0rpx;">
      <block v-for="(item, index) in menuList" :key="index">
       <view class="tn-margin-bottom tn-margin-top-sm" style="width: 25%;" @click="menuTn(item.navigate, index)">
         <view class="tn-flex tn-flex-direction-column tn-flex-row-center tn-flex-col-center">
@@ -85,7 +85,7 @@
     
     <view class="">
       
-      <view class="" v-if="current==0">
+      <view class="" v-if="list.length > 0">
         <view class="" style="padding: 30rpx 20rpx;" >
           <tn-waterfall ref="waterfall" v-model="list" @finish="handleWaterFallFinish">
             <template v-slot:left="{ leftList }">
@@ -175,29 +175,17 @@
         <tn-load-more :status="loadStatus"></tn-load-more>
       </view>
       
-      <view class="" v-if="current==1">
+			
+      <view class=""  v-if="list.length < 1">
        <view class="" style="padding: 6vh 20rpx;">
          <view class="tn-text-center" style="font-size: 200rpx;padding-top: 30rpx;">
            <text class="tn-icon-wea-wind tn-color-gray--light"></text>
          </view>
          <view class="tn-color-gray--disabled tn-text-center tn-text-lg">内容被台风吹走了</view>
        </view>
-      </view>
-      
-      <view class="" v-if="current==2">
-       <view class="" style="padding: 6vh 20rpx;">
-         <view class="tn-text-center" style="font-size: 200rpx;padding-top: 30rpx;">
-           <text class="tn-icon-wea-wind tn-color-gray--light"></text>
-         </view>
-         <view class="tn-color-gray--disabled tn-text-center tn-text-lg">内容被台风卷走了</view>
-       </view>
-      </view>
-      
+      </view>     
     </view>
-    
-   
-    <!-- <view class='tn-tabbar-height'></view> -->
-    
+      
   </view>
 </template>
 
@@ -230,6 +218,7 @@
 				queryWhere: {
 					page: 1,
 					size: 20,
+					type: 0,
 				},
       }
     },
@@ -240,13 +229,18 @@
       } else {
         this.isAndroid = true
       }
-      /* 瀑布流*/
-      // this.getRandomData()
 			this.getBannerList()
 			this.getMenuList()
 			this.getImageList()
     },
     methods: {
+			clickBanner(index) {
+				if (this.bannerList[index].navigate != '') {
+					uni.navigateTo({
+						url: this.bannerList[index].navigate
+					})
+				}
+			},
 			getImageList() {
 				uni.showLoading({
 					title: "努力加载中"
@@ -284,6 +278,10 @@
       // tab选项卡切换
       tabChange(index) {
         this.current = index
+				this.queryWhere.type = index
+				this.queryWhere.page = 1
+				this.queryWhere.size = 20
+				this.getImageList()
       },
 
       // 跳转

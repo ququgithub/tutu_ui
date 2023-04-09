@@ -296,7 +296,7 @@
 </template>
 
 <script>
-	import { userLogin, userInfo } from '@/utils/api/user'
+	import { userInfo, userLogin } from '@/utils/api/user'
 	export default {
 		name: 'Mine',
 		data() {
@@ -307,15 +307,22 @@
 		created() {
 			this.getUsercaheInfo()
 		},
+		onShow() {
+			this.getUsercaheInfo()
+		},
+		onLoad() {
+			this.getUsercaheInfo()
+		},
+		mounted() {
+			this.getUsercaheInfo()
+		},
 		methods: {
-			getUsercaheInfo() {
-				if (uni.getStorageSync("login").length != 0 || uni.getStorageSync("login") != undefined) {
-					userInfo().then(res => {
-						this.userInfo = res
-					})
-				}
-			},
 			userLogin() {
+				uni.navigateTo({
+					url: '/pageA/login/login'
+				})
+			},
+			getUsercaheInfo() {
 				let _that = this
 				uni.login({
 					provider: 'weixin',
@@ -339,14 +346,14 @@
 			//拨打固定电话
 			callPhoneNumber() {
 				uni.makePhoneCall({
-					phoneNumber: "18219128888",
+					phoneNumber: "18228937997",
 				});
 			},
 			// 复制开源地址
 			copySource() {
 				wx.vibrateShort();
 				uni.setClipboardData({
-					data: "https://ext.dcloud.net.cn/publisher?id=356088",
+					data: "https://github.com/7small7",
 				})
 			},
 		}

@@ -12,7 +12,8 @@
     
     <view class="" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
             
-      <view class="wallpaper-shadow tn-margin tn-padding" @click="tn('/pageB/chat/chatGPT')">
+      <view class="wallpaper-shadow tn-margin tn-padding">
+				<!-- @click="tn('/pageB/chat/chatGPT')"> -->
         <view class="tn-flex tn-flex-col-top">
           <!-- 这个是图标形式 -->
           <!-- <view class="">
@@ -32,27 +33,67 @@
           <view class="tn-padding-left-sm" style="width: 100%;">
             <view class="tn-flex tn-flex-row-between tn-flex-col-between">
               <view class="justify-content-item">
-                <text class="tn-color-wallpaper tn-text-lg tn-text-bold">智能助手</text>
+                <text class="tn-color-wallpaper tn-text-lg tn-text-bold">发布更新</text>
               </view>
             </view>
             <view class=" tn-padding-top-xs  tn-text-ellipsis-2">
-              <text class="tn-color-gray">您的有一条消息发送失败，请重新发送</text>
+              <text class="tn-color-gray">兔兔找图预览版正式发布啦，快来关注吧</text>
             </view>
           </view>
         </view>
         <view class="tn-flex tn-flex-row-between tn-flex-col-between tn-margin-top-sm">
           <view class="justify-content-item tn-color-gray tn-text-center tn-color-gray">
             <text class="tn-icon-time tn-padding-right-xs tn-padding-left-xs tn-text-df"></text>
-            <text class="tn-text-sm">2022-10-25 16:27</text>
+            <text class="tn-text-sm">2023-04-02 06:27:12</text>
           </view>
           <view class="justify-content-item tn-round tn-text-xs tn-bg-blue--light tn-color-blue" style="padding: 5rpx 15rpx;">
             <text class="tn-padding-right-xs">#</text> 官 方
           </view>
         </view>
       </view>
+			
+			<view class="wallpaper-shadow tn-margin tn-padding">
+				<!-- @click="tn('/pageB/chat/chatGPT')"> -->
+			  <view class="tn-flex tn-flex-col-top">
+			    <!-- 这个是图标形式 -->
+			    <!-- <view class="">
+			      <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur" style="background-color: #F3F2F7;color: #7C8191;">
+			        <view class="tn-icon-constellation"></view>
+			      </view>
+			    </view> -->
+			    <!-- 这个是图片形式，自己看需要去使用 -->
+			    <view class="">
+			      <view class="logo-pic">
+			        <view class="logo-image">
+			          <view class="" style="background-image:url('https://cdn.nlark.com/yuque/0/2022/png/280373/1666765211176-assets/web-upload/fafd21e9-b5e5-4243-8060-a3c3d3a570cf.png');width: 100rpx;height: 100rpx;background-size: cover;">
+			          </view>
+			        </view>
+			      </view>
+			    </view>
+			    <view class="tn-padding-left-sm" style="width: 100%;">
+			      <view class="tn-flex tn-flex-row-between tn-flex-col-between">
+			        <view class="justify-content-item">
+			          <text class="tn-color-wallpaper tn-text-lg tn-text-bold">发布更新</text>
+			        </view>
+			      </view>
+			      <view class=" tn-padding-top-xs  tn-text-ellipsis-2">
+			        <text class="tn-color-gray">兔兔找图 上线斗图功能，快来使用吧</text>
+			      </view>
+			    </view>
+			  </view>
+			  <view class="tn-flex tn-flex-row-between tn-flex-col-between tn-margin-top-sm">
+			    <view class="justify-content-item tn-color-gray tn-text-center tn-color-gray">
+			      <text class="tn-icon-time tn-padding-right-xs tn-padding-left-xs tn-text-df"></text>
+			      <text class="tn-text-sm">2023-04-03 22:17:32</text>
+			    </view>
+			    <view class="justify-content-item tn-round tn-text-xs tn-bg-blue--light tn-color-blue" style="padding: 5rpx 15rpx;">
+			      <text class="tn-padding-right-xs">#</text> 官 方
+			    </view>
+			  </view>
+			</view>
       
       
-      <view class="tn-margin wallpaper-shadow tn-padding" v-for="(item,index) in 16" :key="index" @click="tn('/pageB/chat/chat')">
+   <!--   <view class="tn-margin wallpaper-shadow tn-padding" v-for="(item,index) in 16" :key="index" @click="tn('/pageB/chat/chat')">
         <view class="tn-flex tn-flex-col-top">
           <view class="">
             <view class="logo-pic">
@@ -67,11 +108,11 @@
               <view class="justify-content-item">
                 <text class="tn-color-wallpaper tn-text-lg tn-text-bold">抓住那只猪</text>
                 <text class="tn-color-gray tn-padding-left-sm tn-padding-right-xs">市场经理</text>
-              </view>
+              </view> -->
               <!-- <view class="justify-content-item tn-round tn-text-xs tn-bg-red--light tn-color-red" style="padding: 10rpx 20rpx;">
                 删 除
               </view> -->
-            </view>
+<!--            </view>
             <view class=" tn-padding-top-xs">
               <text class="tn-color-gray">人生就是这样，得意淡然，失意坦然；喜而不狂，忧而不伤。</text>
             </view>
@@ -86,7 +127,7 @@
             <text class="tn-padding-right-xs">#</text> 5条未读消息
           </view>
         </view>
-      </view>
+      </view> -->
       
       
     </view>

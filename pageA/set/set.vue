@@ -213,7 +213,6 @@
 				})
 			},
 			updateUserInfo() {
-				console.log(this.userInfo)
 				updateUserInfo(this.userInfo).then(res => {
 					uni.setStorageSync("login", res.token)
 					uni.setStorageSync("userinfo", res.user)

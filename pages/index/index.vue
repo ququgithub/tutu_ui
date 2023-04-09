@@ -13,6 +13,7 @@
         scroll-y
         enable-back-to-top
         :lower-threshold="100"
+				:scroll-top="scrollTop"
         @scrolltolower="tabbarPageScrollLower"
       >
         <page-a ref="pageA"></page-a>
@@ -97,7 +98,7 @@
           </view>  -->        
           <image class="" :src="`/static/tabbar/tn-tabbar1${currentTabbarIndex === 1 ? '-curnew' : ''}.png`"></image>
         </view>
-        <view class="" :class="[currentTabbarIndex === 1 ? 'tn-color-blue' : 'tn-color-gray']">分类</view>
+        <view class="" :class="[currentTabbarIndex === 1 ? 'tn-color-blue' : 'tn-color-gray']">斗图</view>
       </view>
       
       <!-- <view class="action bar-center">
@@ -147,6 +148,13 @@
         <view class="" :class="[currentTabbarIndex === 4 ? 'tn-color-blue' : 'tn-color-gray']">我的</view>
       </view>
     </view>
+		
+		<!-- 滚动到顶部 -->
+		<!-- <template v-if="currentTabbarIndex == 0 && pageA > 0">
+			<view class="back-top" @click="backTop">
+				<image src="http://qiniucloud.qqdeveloper.com//29315936e7e3ac20e4cb507c30590fcb.png" style="width: 100%; height: 100%;"></image>
+			</view>
+		</template> -->
 	</view>
 </template>
 
@@ -156,6 +164,7 @@
   import PageC from './component/PageC.vue'
   import PageD from './component/PageD.vue'
   import PageE from './component/PageE.vue'
+	
 	
 	export default {
     components: {
@@ -169,7 +178,9 @@
 			return {
         currentTabbarIndex: 0,
         // 自定义底栏对应页面的加载情况
-        tabberPageLoadFlag: []
+        tabberPageLoadFlag: [],
+				scrollTop: 0,// 首页滚动高度
+				pageA: 1, // 首页数据加载的页数
 			}
 		},
 		onLoad(options) {
@@ -184,13 +195,20 @@
       
     },
 		methods: {
-      
-      
+			backTop() {
+				console.log("11111")
+				this.scrollTop = 0
+				console.log(this.scrollTop)
+			},
       // 导航页面滚动到底部
       tabbarPageScrollLower(e) {
         if (this.currentTabbarIndex === 0) {
+					let pageA = this.$refs.pageA.queryWhere.page
           this.$refs.pageA.getRandomData && this.$refs.pageA.getRandomData()
         }
+				if (this.currentTabbarIndex === 1) {
+				  this.$refs.pageB.getEmoGroupList()
+				}
       },
       
       // 修改当前选中的tabbar
@@ -210,13 +228,18 @@
           this.tabberPageLoadFlag[index] = true
         }
       },
-      
-      
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	.back-top {
+		width: 100rpx;
+		height: 100rpx;
+		position: fixed;
+		right: 0rpx;
+		bottom: 200rpx;
+	}
 	.index {
     width: 100%;
     height: 100vh;
