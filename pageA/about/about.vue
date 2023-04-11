@@ -7,25 +7,40 @@
         <text class='icon tn-icon-left'></text>
         <text class='icon tn-icon-home-capsule-fill'></text>
       </view>
+			<view class="tn-flex tn-flex-col-center tn-flex-row-center ">
+			  <text class="tn-text-bold tn-text-xl tn-color-black">使用帮助</text>
+			</view>
     </tn-nav-bar>
     
     
     <view class="tn-margin tn-text-center" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
-      关于我们，懒，还没写
+      <rich-text :nodes="content"></rich-text>
     </view>
   </view>
 </template>
 
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
+	import { docShow } from '@/utils/api/doc.js'
   export default {
     name: 'TemplateAbout',
     mixins: [template_page_mixin],
     data(){
-      return {}
+      return {
+				uid: "",
+				content: {},
+			}
     },
+		onLoad(params) {
+			this.uid = params.uid || ""
+			this.getDocContent()
+		},
     methods: {
-
+			getDocContent() {
+				docShow({uid: this.uid}).then(res => {
+					this.content = res.content
+				})
+			},
     }
   }
 </script>
@@ -70,4 +85,7 @@
       background-color: #FFFFFF;
     }
   }
+	.tn-text-center {
+		text-align: left;
+	}
 </style>

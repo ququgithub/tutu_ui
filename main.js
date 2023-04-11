@@ -17,6 +17,10 @@ Vue.mixin(vuexStore)
 let mpShare = require('tuniao-ui/libs/mixin/mpShare.js')
 Vue.mixin(mpShare)
 
+//挂载全局方法
+import func from '@/utils/function.js'
+Vue.prototype.$func = func
+
 const app = new Vue({
   store,
   ...App

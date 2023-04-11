@@ -13,12 +13,12 @@
       <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-3" @tap="showLandscape">
         <view class="tn-icon-level"></view>
       </view>
-      <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-2" @click="tn('/pageA/author/author')">
+      <!-- <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-2" @click="tn('/pageA/author/author')">
         <view class="tn-icon-my"></view>
-      </view>
-      <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-1" @click="tn('/pageB/chat/chat')">
+      </view> -->
+      <!-- <view class="icon15__item--icon tn-flex tn-flex-row-center tn-flex-col-center tn-shadow-blur button-1" @click="tn('/pageB/chat/chat')">
         <view class="tn-icon-comment"></view>
-      </view>
+      </view> -->
     </view>  
     
     
@@ -26,7 +26,7 @@
     <swiper class="card-swiper" :circular="true"
       :autoplay="true" duration="500" interval="12000" @change="cardSwiper" > 
       <swiper-item v-for="(item,index) in swiperList" :key="index" :class="cardCur==index?'cur':''">
-        <view class="swiper-item image-banner" :style="'background-image:url('+ item.url + ');background-size: cover;border-radius: 15rpx;'">
+        <view class="swiper-item image-banner" @click="$func.imagePreview(item.url + item.path)" :style="'background-image:url('+ item.url + item.path + ');background-size: cover;border-radius: 15rpx;background-repeat: no-repeat;'">
         </view>
       </swiper-item>
     </swiper>
@@ -47,7 +47,7 @@
         </view>
         <view class="">收藏</view>
       </view>
-      <view class="action">
+      <view class="action" @click="downloadImage">
         <view class="bar-icon">
           <view class="tn-icon-download">
           </view>
@@ -86,7 +86,7 @@
             <view class="">
               <view class="logo-pic tn-shadow">
                 <view class="logo-image">
-                  <view class="tn-shadow-blur" style="background-image:url('https://tnuiimage.tnkjapp.com/blogger/blogger_beibei.jpg');width: 100rpx;height: 100rpx;background-size: cover;">
+									<view class="tn-shadow-blur" :style="'background-image:url('+ swiperList[0].author.qr_url +');width: 100rpx;height: 100rpx;background-size: cover;'">
                   </view>
                 </view>
               </view>
@@ -95,7 +95,7 @@
             <view class="tn-padding-left-sm tn-padding-top-xs" style="width: 100%;">
               <view class="tn-flex tn-flex-row-between tn-flex-col-between">
                 <view class="justify-content-item">
-                  <text class="tn-text-lg tn-text-bold">图鸟_圆圆</text>
+                  <text class="tn-text-lg tn-text-bold">{{swiperList[0].user.nickname}}</text>
                   <text class="tn-padding-left-sm tn-padding-right-xs">水瓶座</text>
                   <text class="tn-icon-con-virgo"></text>
                 </view>
@@ -105,7 +105,7 @@
               </view>
               <view class="tn-padding-top-xs">
                 <view class="">
-                  <text class="tn-text-df tn-color-gray--light">2022-12-30 16:23</text>
+                  <text class="tn-text-df tn-color-gray--light">{{swiperList[0].upload_time}}</text>
                 </view>
               </view>
             </view>
@@ -113,7 +113,7 @@
         
           
           <view class="tn-flex tn-flex-row-between tn-flex-col-between tn-margin-top-xl tn-text-justify">
-            <text class="">我不喜欢带伞，因为雨水从不滴落在我的心上；心若向阳，无惧远方。。</text>
+            <text class="">一个人所能做的就是做出好榜样，要有勇气在风言风语的社会中坚定地高举伦理的信念。——爱因斯坦</text>
           </view>
         </view>
   
@@ -126,6 +126,7 @@
 
 <script>
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
+	import { imageItemList, imageDownLoad } from '@/utils/api/image'
   export default {
     name: 'TemplateDetails',
     mixins: [template_page_mixin],
@@ -133,33 +134,35 @@
       return {
         show1: false,
         cardCur: 0,
-        swiperList: [{
-          id: 0,
-          type: 'image',
-          url: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664005699066-assets/web-upload/f7a37b29-506a-4e79-937f-826334902bb4.jpeg',
-        }, {
-          id: 1,
-          type: 'image',
-          url: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664015047077-assets/web-upload/7c3bab64-5d8b-488b-8fb2-6aed93f86dc6.jpeg',
-        }, {
-          id: 2,
-          type: 'image',
-          url: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664179989916-assets/web-upload/eda197eb-42ce-44b1-9b14-fce3481db603.jpeg',
-        }, {
-          id: 3,
-          type: 'image',
-          url: 'https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1664005699053-assets/web-upload/8645ea3a-e0a9-4422-8364-cc5ede305c9f.jpeg',
-        }],
-        }
+        swiperList: [],
+				image_uid: '',
+      }
     },
+		onLoad(options) {
+			this.image_uid = options.image_uid || ""
+			this.getImageItemList()
+		},
     methods: {
+			getImageItemList() {
+				imageItemList({image_uid: this.image_uid}).then(res => {
+					this.swiperList = res.items
+				})
+			},
       // 跳转
       tn(e) {
         uni.navigateTo({
           url: e,
-        });
+        })
       },
-      
+      downloadImage() {
+				imageDownLoad({image_uid: this.swiperList[this.cardCur].uid}).then(res => {
+					if (res.code == 1) {
+						this.$func.templateSubscribe(res.template_id, res.url ?? '')
+						return
+					}
+					this.$func.showToast(res.msg)
+				})
+			},
       // cardSwiper
       cardSwiper(e) {
         this.cardCur = e.detail.current

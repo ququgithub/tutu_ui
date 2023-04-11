@@ -42,16 +42,13 @@
     
     </view>
     
-    
     <!-- 回到首页悬浮按钮-->
     <nav-index-button></nav-index-button>
-    
-    
+  
   </view>
 </template>
 
 <script>
-  import vipListData from '@/libs/navigation/navigation.js'
   import template_page_mixin from '@/libs/mixin/template_page_mixin.js'
   import NavIndexButton from '@/libs/components/nav-index-button.vue'
   export default {
@@ -74,10 +71,6 @@
       }
     },
     data(){
-      return {
-        // nav菜单列表
-        navList: vipListData.data
-      }
     },
     methods: {
       getRandomCoolBg() {

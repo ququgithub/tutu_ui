@@ -2,4 +2,5 @@
 .vscode/
 .DS_Store
 .hbuilderx
-unpackage
+unpackage/
+node_modules/

@@ -30,8 +30,8 @@
             open-type="chooseAvatar"
             @chooseavatar="chooseAvatarEvent"
           >
-            <view v-if="userInfo.avatar" class="avatar__image">
-              <image class="image" :src="userInfo.avatar" mode="aspectFill"></image>
+            <view v-if="userInfo.avatar_url" class="avatar__image">
+              <image class="image" :src="userInfo.avatar_url" mode="aspectFill"></image>
             </view>
             <view v-else class="avatar__empty">
               <image class="image" src="https://cdn.nlark.com/yuque/0/2022/jpeg/280373/1668928062708-assets/web-upload/764843cf-055a-4cb6-b5d3-dca528b33fd4.jpeg" mode="aspectFill"></image>
@@ -46,7 +46,7 @@
       <!-- 昵称输入 -->
       <view class="wam__nickname">
         <view class="nickname__data">
-          <input class="input" type="nickname" v-model="userInfo.nickname" placeholder="请输入昵称" placeholder-style="color: #AAAAAA;">
+          <input class="input" type="nickname" v-model="userInfo.nickname" placeholder="请输入昵称" @blur="inputAddListener" @input="inputAddListener" placeholder-style="color: #AAAAAA;">
         </view>
       </view>
       
@@ -55,7 +55,7 @@
       <view
         class="wam__submit-btn"
         :class="[{
-          'disabled': !userInfo.avatar || !userInfo.nickname
+          'disabled': !userInfo.avatar_url || !userInfo.nickname
         }]"
         hover-class="tn-btn-hover-class"
         :hover-stay-time="150"
@@ -84,7 +84,7 @@
       return {
         openModal: false,
         userInfo: {
-          avatar: '',
+          avatar_url: '',
           nickname: ''
         }
       }
@@ -98,17 +98,18 @@
       }
     },
     methods: {
-      
-      
       // 头像选择
       chooseAvatarEvent(e) {
-        this.userInfo.avatar = e.detail.avatarUrl
+        this.userInfo.avatar_url = e.detail.avatarUrl
       },
-      
+      inputAddListener(e) {
+				this.userInfo.nickname = e.detail.value
+			},
       // 更新用户信息
       submitUserInfo() {
+				console.log(this.userInfo)
         // 判断是否已经选择了用户头像和输入了用户昵称
-        if (!this.userInfo.avatar || !this.userInfo.nickname) {
+        if (!this.userInfo.avatar_url || !this.userInfo.nickname) {
           return uni.showToast({
             icon: 'none',
             title: '请选择头像和输入用户信息'

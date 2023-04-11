@@ -55,8 +55,10 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
+        "LazyCodeLoading" : true,
         "requiredPrivateInfos" : [ "chooseAddress" ]
     },
+    // "betterScopedSlots": "auto"
     "mp-alipay" : {
         "usingComponents" : true
     },
