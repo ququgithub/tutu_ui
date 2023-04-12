@@ -346,14 +346,14 @@
 			//拨打固定电话
 			callPhoneNumber() {
 				uni.makePhoneCall({
-					phoneNumber: "18228937997",
+					phoneNumber: "18888888",
 				});
 			},
 			// 复制开源地址
 			copySource() {
 				wx.vibrateShort();
 				uni.setClipboardData({
-					data: "https://github.com/7small7",
+					data: "https://github.com/ququgithub/tutu_ui",
 				})
 			},
 		}
